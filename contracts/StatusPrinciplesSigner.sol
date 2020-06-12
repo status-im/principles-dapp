@@ -56,6 +56,7 @@ contract StatusPrinciplesSigner is Controlled, TokenClaimer, ERC721("Status Prin
     ENS public ens;
 
     mapping(uint256 => bytes32) public ensNode;
+    mapping(uint256 => address) public signer;
     mapping(uint256 => uint256) public signTimestamp;
 
     /**
@@ -138,6 +139,7 @@ contract StatusPrinciplesSigner is Controlled, TokenClaimer, ERC721("Status Prin
         if(_ensNode != bytes32(0)){
             setENSnode(tokenId, _signer, _ensNode);
         }
+        signer[tokenId] = _signer;
         signTimestamp[tokenId] = block.timestamp;
         _mint(_signer, tokenId);
     }
