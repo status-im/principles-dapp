@@ -55,9 +55,13 @@ contract StatusPrinciplesSigner is Controlled, TokenClaimer, ERC721("Status Prin
 
     ENS public ens;
 
-    mapping(uint256 => bytes32) public ensNode;
-    mapping(uint256 => address) public signer;
-    mapping(uint256 => uint256) public signTimestamp;
+    struct Metadata {
+        uint256 timestamp;
+        address signer;
+        bytes32 ensNode;
+    }
+    
+    mapping(uint256 => Metadata) public metadata;
 
     /**
      * @param _ens Address of ENS Registry
@@ -110,21 +114,6 @@ contract StatusPrinciplesSigner is Controlled, TokenClaimer, ERC721("Status Prin
         withdrawBalance(_token, controller);
     }
 
-
-    /**
-     * @notice sets a ENS node to a token
-     * @param _tokenId token being set
-     * @param _signer resolved address
-     * @param _ensNode ens node being set
-     */
-    function setENSnode(uint256 _tokenId, address _signer, bytes32 _ensNode) internal {
-        require(
-            _signer == Resolver(ens.resolver(_ensNode)).addr(_ensNode),
-            "Bad ENS node"
-        );
-        ensNode[_tokenId] = _ensNode;
-    }
-
     /**
      * @notice generate a token
      * @param _signer account being included new token
@@ -135,12 +124,14 @@ contract StatusPrinciplesSigner is Controlled, TokenClaimer, ERC721("Status Prin
         internal
         returns (uint256 tokenId)
     {
+        require(_signer != address(0), "Bad signer");
+        require(
+            _ensNode == bytes32(0) ||
+            _signer == Resolver(ens.resolver(_ensNode)).addr(_ensNode),
+            "Bad ENS node"
+        );
         tokenId = this.totalSupply();
-        if(_ensNode != bytes32(0)){
-            setENSnode(tokenId, _signer, _ensNode);
-        }
-        signer[tokenId] = _signer;
-        signTimestamp[tokenId] = block.timestamp;
+        metadata[tokenId] = Metadata(block.timestamp, _signer, _ensNode);
         _mint(_signer, tokenId);
     }
 
