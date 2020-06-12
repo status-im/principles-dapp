@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: BSD-2.0
+// SPDX-License-Identifier: BSD-2-Clause
 
 pragma solidity ^0.6.2;
 
