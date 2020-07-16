@@ -2,7 +2,7 @@
 
 pragma solidity >=0.5.0 <0.7.0;
 
-import "../token/ERC20Token.sol";
+import "../openzeppelin/token/ERC20/ERC20.sol";
 
 abstract contract TokenClaimer {
     event ClaimedTokens(address indexed token, address indexed controller, uint256 amount, bool success);
@@ -23,7 +23,7 @@ abstract contract TokenClaimer {
             balance = address(this).balance;
             (success,) = _destination.call{value: balance}("");
         } else {
-            ERC20Token token = ERC20Token(_token);
+            ERC20 token = ERC20(_token);
             balance = token.balanceOf(address(this));
             success = token.transfer(_destination, balance);
         }
