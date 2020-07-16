@@ -25,5 +25,6 @@ abstract contract Signer {
     )
         public
         view
+        virtual
         returns (bytes4 magicValue);
 }
