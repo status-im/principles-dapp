@@ -5,7 +5,10 @@
   "homepage": "https://github.com/status-im/principles-dapp",
   "bugs": "https://github.com/status-im/principles-dapp/issues",
   "scripts": {
-    "test": "embark test"
+    "test": "embark test",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [],
   "author": "",
@@ -35,8 +38,11 @@
     "embarkjs-whisper": "^6.0.0",
     "jquery": "3.4.1",
     "popper.js": "1.15.0",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
+    "next": "^9.2.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^1.4.0",
     "reactstrap": "8.1.1"
   },
   "dependencies": {
