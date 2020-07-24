@@ -18,7 +18,7 @@ module.exports = {
     accounts: [
       {
         nodeAccounts: true,
-        password: "config/testnet/password"
+        password: "embarkConfig/testnet/password"
       }
     ]
   },
@@ -29,7 +29,7 @@ module.exports = {
     accounts: [
       {
         nodeAccounts: true,
-        password: "config/livenet/password"
+        password: "embarkConfig/livenet/password"
       }
     ]
   }
